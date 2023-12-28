@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Group5-IoTProject-MNZ</string>
+
+    <string name="txv_title_temp">Smart Lights</string>
+    <string name="stop">Stop</string>
+    <string name="voice_command">Voice Command</string>
+    <string name="empty_textview" />
+    <string name="error_message_voiceCommand">Something went wrong when trying to get voice command.</string>
+    <string name="error_message_noInput_voiceCommand">No voice commands were detected.</string>
+
+
+</resources>
