@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onError(int i) {
-                textView.setText(getString(R.string.error_message_voiceCommand));
+                //textView.setText(getString(R.string.error_message_voiceCommand));
             }
 
             @Override
@@ -93,6 +93,10 @@ public class MainActivity extends AppCompatActivity {
                 //and then set the text of the textview to the string (to see how the input turns out)
                 //This will then be changed to make the lights change depending on the voice commands
                 if(matches != null) {
+                    //Here code for Actuating/Simulating actuation should be
+                    //Ta fram en method som typ kollar om stringen innehåller "dim" så ska
+                    //ljuset bli dimmat men om det innehåller off så ska det off och on så on
+                    //Lägg också till att det här ska anpassas utifrån tid?
                     string = matches.get(0);
                     textView.setText(string);
                 } else {
