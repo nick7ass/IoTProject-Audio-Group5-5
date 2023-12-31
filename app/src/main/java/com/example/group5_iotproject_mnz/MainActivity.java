@@ -16,15 +16,21 @@ import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
     private SpeechRecognizer speechRecognizer;
     private Intent intentRecognizer;
     private TextView textView;
+
+    //Imageview of lightbulb
+    ImageView lightImage;
 
     //Not needed because what they do is set in Activity_main.xml in their attributes
    // private Button voiceCommandButton;
@@ -38,8 +44,9 @@ public class MainActivity extends AppCompatActivity {
         //Ask permission for using recording
         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, PackageManager.PERMISSION_GRANTED);
 
-        //Getting the textview from ID
+        //Getting the textview and imageview from ID
         textView = findViewById(R.id.infoTextView);
+        lightImage = findViewById(R.id.lightImage);
 
         //Buttons Not needed because of made their methods connected through their attribute in xml
         //voiceCommandButton = findViewById(R.id.voiceCommandButton);
@@ -88,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResults(Bundle bundle) {
                 //Makes an arraylist of the input from the recognizer
                 ArrayList<String> matches = bundle.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION);
-                String string = "";
+                String voiceCommand = "";
                 //If the input is not nothing then it will create a string of the first input (on index 0)
                 //and then set the text of the textview to the string (to see how the input turns out)
                 //This will then be changed to make the lights change depending on the voice commands
@@ -97,9 +104,41 @@ public class MainActivity extends AppCompatActivity {
                     //Ta fram en method som typ kollar om stringen innehåller "dim" så ska
                     //ljuset bli dimmat men om det innehåller off så ska det off och on så on
                     //Lägg också till att det här ska anpassas utifrån tid?
-                    string = matches.get(0);
-                    textView.setText(string);
-                } else {
+                    voiceCommand = matches.get(0);
+                    //textView.setText(voiceCommand);
+
+                    //To be able to consider time: (Couldn't use "LocalTime" as we need API min of 22 to work since thats the only android phone available to us
+
+                    //To get current time
+                    Calendar calendar  = Calendar.getInstance();
+                    int hourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+
+                    //Our time range for which to consider when controlling lights
+                    int startHourRange = 6;
+                    int endHourRange = 17;
+
+                    //Change the light depending on input:
+
+                    //Dim the lights if the command includes dim
+                    if (voiceCommand.contains("dim")) {
+                        lightImage.setImageResource(R.drawable.lightdim);
+                        textView.setText("Lights dimmed.");
+                    } //Turn off lights if command contains off
+                    else if (voiceCommand.contains("off")) {
+                        lightImage.setImageResource(R.drawable.lightoffcompletely);
+                        textView.setText("Lights turned off.");
+                    } //If it's daytime turn lights on bright
+                    else if (voiceCommand.contains("on") && hourOfDay >= startHourRange && hourOfDay <= endHourRange) {
+                        lightImage.setImageResource(R.drawable.lightonbright);
+                        textView.setText("Lights turned on bright.");
+
+                    } //If it's late then turn them on but warmer
+                    else if (voiceCommand.contains("on")) {
+                        lightImage.setImageResource(R.drawable.lightonwarm);
+                        textView.setText("Lights set to 'On' but warmer since it's late.");
+                    }
+                } //If something goes wrong write out error message (Is this needed?)
+                else {
                     textView.setText(getString(R.string.error_message_noInput_voiceCommand));
                 }
             }
@@ -124,8 +163,9 @@ public class MainActivity extends AppCompatActivity {
 
     //This method is connected to the stop button and will
     //make the speechrecognizer stop listening for input
-    public void StopButton(View view) {
+    //Not sure we need this button
+    /*public void StopButton(View view) {
         speechRecognizer.stopListening();
-    }
+    }*/
 
 }

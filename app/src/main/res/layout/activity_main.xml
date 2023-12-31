@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/activitybackground">
+    android:orientation="vertical" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/black">
 
-    <TextView android:id="@+id/title" android:layout_width="fill_parent" android:layout_height="wrap_content" android:padding="10dip" android:gravity="center" android:text="@string/txv_title_temp" android:textColor="@color/black_alpha" android:textSize="30sp"/>
+    <TextView android:id="@+id/title" android:layout_width="fill_parent" android:layout_height="wrap_content" android:padding="10dip" android:gravity="center" android:text="@string/txv_title_temp" android:textColor="@color/title_color" android:textSize="30sp"/>
 
     <LinearLayout android:orientation="horizontal" android:layout_width="wrap_content" android:layout_height="wrap_content" android:padding="5dip"> </LinearLayout>
 
     <TextView
         android:id="@+id/infoTextView"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:text="dfghdfghdfgh" />
+        android:layout_height="100dp"
+        android:text=" "
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/lightImage"
         android:layout_width="match_parent"
         android:layout_height="328dp"
-        app:srcCompat="@drawable/lightonbright" />
+        app:srcCompat="@drawable/lightoffcompletely" />
 
     <Button
         android:id="@+id/voiceCommandButton"
@@ -26,11 +30,11 @@
         android:onClick="StartButton"
         android:text="@string/voice_command" />
 
-    <Button
+    <!--<Button
         android:id="@+id/stopButton"
         android:layout_width="match_parent"
         android:layout_height="61dp"
         android:onClick="StopButton"
-        android:text="@string/stop" />
+        android:text="@string/stop" />-->
 
 </LinearLayout>
